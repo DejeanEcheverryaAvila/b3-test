@@ -52,6 +52,6 @@ A documentação da API ficará disponível em: https://localhost:5001/swagger
 ![image](https://github.com/user-attachments/assets/d4d34891-fda9-4ff7-9dd5-a21c3280d264)
 
 
-** Obs. ❓:**
+## Obs. ❓
 O relatório contendo a descrição dos resultados dos testes pode ser consultado em CDB-B3.Tests/coverage-report
 
