@@ -1,0 +1,34 @@
+<h3 class="section-title">Simulador de investimento CDB</h3>
+<form (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="investment-amount">Valor a ser investido (Reais):</label>
+    <input
+      type="text"
+      id="investment-amount"
+      name="investment-amount"
+      class="form-control"
+      [(ngModel)]="investmentAmount"
+      placeholder="Valor a ser investido"
+      pattern="[0-9]+(\.[0-9]+)?"
+      currencyMask="{ allowNegative: false, prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
+      *ngIf="!isTestEnvironment"
+        [options]="{ allowNegative: false, prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" 
+    >
+  </div>
+  <div class="form-group">
+    <label for="redemption-months">Meses para resgate:</label>
+    <input type="number" min="2" id="redemption-months" name="redemption-months" class="form-control" [(ngModel)]="redemptionMonths" placeholder="Meses para resgate">
+  </div>
+  <div id="confirm-btn-container">
+    <button type="submit" class="btn btn-primary">{{ buttonLabel }}</button>
+  </div>
+</form>
+
+<div id="results-container" *ngIf="showResults">
+  <div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Resultado</h4>
+    <p>Valor bruto: {{ grossAmount | currency:'BRL' }}</p>
+    <p>Valor líquido: {{ netAmount | currency:'BRL' }}</p>
+    <hr>
+  </div>
+</div>
