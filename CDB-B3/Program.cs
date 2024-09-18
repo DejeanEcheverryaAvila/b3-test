@@ -7,18 +7,10 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 
 namespace CDB_B3 {
-    /// <summary>
-    /// The main entry point class for the application.
-    /// S1118 intentionally disabled for this class due to the fact that 
-    /// a static Program class (that can't be instantiated), also can't be tested by xUnit.
-    /// </summary>
     #pragma warning disable S1118
     public class Program
     {
-        /// <summary>
-        /// The entry point for the application.
-        /// </summary>
-        /// <param name="args">The command-line arguments passed to the application.</param>
+        private static string _frontendURL = "https://localhost:4200";
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -32,11 +24,23 @@ namespace CDB_B3 {
                 options.ApiVersionReader = new UrlSegmentApiVersionReader();
             });
 
+            // Configurar CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    policyBuilder =>
+                    {
+                        policyBuilder.WithOrigins(_frontendURL)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
+                    });
+            });
+
             builder.Services.AddControllers();
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            // Configuração do Swagger
             builder.Services.AddEndpointsApiExplorer();
-
             builder.Services.AddSwaggerGen(c =>
             {
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -52,30 +56,24 @@ namespace CDB_B3 {
                         Name = "Dejean Echeverrya Ávila",
                         Email = ""
                     },
-
                     License = new OpenApiLicense
                     {
                         Name = "MIT",
                         Url = new Uri("https://opensource.org/licenses/MIT")
                     },
-
                 });
 
                 if (File.Exists(xmlPath))
                     c.IncludeXmlComments(xmlPath);
 
-                // Add our custom Filter to handle a default API Version field
                 c.OperationFilter<ApiVersionOperationFilter>();
             });
 
             builder.Services.AddScoped<InvestmentIncomeTaxService>();
 
-            // Create a factory method to select the right implementation for ICDBCalculator
             builder.Services.AddScoped<ICdbCalculator>(serviceProvider =>
             {
-                // Manually inject the dependency
                 var taxService = serviceProvider.GetRequiredService<InvestmentIncomeTaxService>();
-                // Here we can use any criteria to select the implementation
                 return new SimpleCdbCalculatorService(taxService);
             });
 
@@ -89,6 +87,11 @@ namespace CDB_B3 {
             }
 
             app.UseHttpsRedirection();
+
+            app.UseRouting();
+
+            // Habilitar CORS
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseAuthorization();
 
