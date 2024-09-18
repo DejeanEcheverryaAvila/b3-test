@@ -30,7 +30,7 @@ describe('CalculatorComponent', () => {
     
     component.onSubmit(); 
     expect(component.buttonLabel).toEqual('Calculando...');
-    const req = httpTestingController.expectOne('https://localhost:7109/api/v1/cdb');
+    const req = httpTestingController.expectOne('https://localhost:5001/api/v1/cdb');
     expect(req.request.method).toEqual('POST');
     req.flush(mockApiResponse);
     
@@ -44,7 +44,7 @@ describe('CalculatorComponent', () => {
     const mockApiResponse = { grossInvestment: 1000, netInvestment: 950 };
     component.onSubmit();
 
-    const req = httpTestingController.expectOne('https://localhost:7109/api/v1/cdb');
+    const req = httpTestingController.expectOne('https://localhost:5001/api/v1/cdb');
     expect(req.request.method).toEqual('POST');
     req.flush(mockApiResponse);
 
@@ -63,7 +63,7 @@ describe('CalculatorComponent', () => {
     });
     component.onSubmit();
 
-    const req = httpTestingController.expectOne('https://localhost:7109/api/v1/cdb');
+    const req = httpTestingController.expectOne('https://localhost:5001/api/v1/cdb');
     expect(req.request.method).toEqual('POST');
     req.error(mockError);
 

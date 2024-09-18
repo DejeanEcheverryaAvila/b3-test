@@ -40,7 +40,7 @@ export class CalculatorComponent {
       monthsToRedemption: this.redemptionMonths,
     };
 
-     this.http.post<ApiResponse>('https://localhost:7109/api/v1/cdb', postData).subscribe({
+     this.http.post<ApiResponse>('https://localhost:5001/api/v1/cdb', postData).subscribe({
       next: (response) => {
         console.log(response);
         this.buttonLabel = 'Calcular';
