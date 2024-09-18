@@ -5,7 +5,6 @@
   - [Tabela de Conteúdos 📖](#tabela-de-conteúdos-)
   - [Descrição 📝](#descrição-)
   - [Pré-Requisitos 📋](#pré-requisitos-)
-  - [Descrição 📝](#descrição--1)
   - [Características Técnicas da API 🔎](#características-técnicas-da-api-)
   - [Estrutura da API 📂](#estrutura-da-api-)
   - [Como usar 🚀](#como-usar-)
@@ -25,11 +24,6 @@ Para executar este projeto, você precisará ter instalado:
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download) - Para o backend.
 - [Node.js](https://nodejs.org/) (versão 14.x ou superior) - Para o frontend.
 - [Angular CLI](https://angular.io/cli) (versão 16.x ou superior) - Para compilar e servir o frontend.
-
-
-## Descrição 📝
-...
-
 
 ## Características Técnicas da API 🔎
 
