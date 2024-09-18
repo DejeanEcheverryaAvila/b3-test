@@ -95,13 +95,11 @@ O relatório contendo a descrição dos resultados dos testes pode ser consultad
    cd b3-frontend-main
   ```
 2. Instale as dependências necessárias:
-  ```
-    bash
+  ```bash
     npm install
   ```
 3. Execute o projeto:
-  ```
-    bash
+  ```bash
     ng serve --ssl
   ```
 
